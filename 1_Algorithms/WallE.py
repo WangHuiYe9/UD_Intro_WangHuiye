@@ -93,12 +93,51 @@ class WallE:
         self.N = False
         self.C = 0
         self.t = False
-        self.l = False
+        
 
     # Declare any help functions here (also use all caps for these!!), it has to include self in the argument.
     # and make sure they are at this indent level
-    def EXAMPLE_FUNCTION(self):
-        pass
+    
+    def LOOPH(self):
+            if self.check_wall() == False:
+                self.move()
+            elif self.check_wall() == True and self.W == False :
+                self.turn_right()
+                self.move()
+                self.turn_right()
+                self.W = True
+            elif self.check_wall() == True and self.W == True:
+                self.turn_left()
+                if self.check_wall() == False:
+                    self.move()
+                    self.turn_left()           
+                    self.W = False
+                else:
+                    self.turn_left()
+                    self.turn_left()
+                    self.move()
+                    self.W = False
+    
+    def LOOPV(self):                   
+            if self.check_wall() == False:
+                self.move()            
+            elif self.check_wall() == True and self.W == False :
+                self.turn_right()
+                self.move()
+                self.turn_right()
+                self.W = True
+            elif self.check_wall() == True and self.W == True:
+                self.turn_left()
+                if self.check_wall() == False:
+                    self.move()
+                    self.turn_left()           
+                    self.W = False
+                else:
+                    self.turn_left()
+                    self.turn_left()
+                    self.move()
+                    self.W = False
+                    self.N = True
 
 
 # These are the 5 functions you have to fill in
@@ -137,95 +176,21 @@ class WallE:
             
     def swap_all_boxes(self):
         if self.check_on_box()== False and self.N == False:
-            if self.check_wall() == False:
-                self.drop_box()
-                self.move()            
-            elif self.check_wall() == True and self.W == False :
-                self.drop_box()
-                self.turn_right()
-                self.move()
-                self.turn_right()
-                self.W = True
-            elif self.check_wall() == True and self.W == True:
-                self.drop_box()
-                self.turn_left()
-                if self.check_wall() == False:
-                    self.move()
-                    self.turn_left()           
-                    self.W = False
-                else:
-                    self.turn_left()
-                    self.turn_left()
-                    self.move()
-                    self.W = False
-                    self.N = True
+            self.drop_box()
+            self.LOOPV()
         
         elif self.check_on_box()== True and self.N == False:
-            if self.check_wall() == False:
-                self.pick_up_box()
-                self.move()            
-            elif self.check_wall() == True and self.W == False :
-                self.pick_up_box()
-                self.turn_right()
-                self.move()
-                self.turn_right()
-                self.W = True
-            elif self.check_wall() == True and self.W == True:
-                self.pick_up_box()
-                self.turn_left()
-                if self.check_wall() == False:
-                    self.move()
-                    self.turn_left()           
-                    self.W = False
-                else:
-                    self.turn_left()
-                    self.turn_left()
-                    self.move()
-                    self.W = False
-                    self.N = True
+            self.pick_up_box()
+            self.LOOPV()
         
         elif self.N == True:
             if self.check_on_box()== False:
                 self.drop_box()
-                if self.check_wall() == False:
-                    self.move()
-                elif self.check_wall() == True and self.W == False :
-                    self.turn_right()
-                    self.move()
-                    self.turn_right()
-                    self.W = True
-                elif self.check_wall() == True and self.W == True:
-                    self.turn_left()
-                    if self.check_wall() == False:
-                        self.move()
-                        self.turn_left()           
-                        self.W = False
-                    else:
-                        self.turn_left()
-                        self.turn_left()
-                        self.move()
-                        self.W = False
+                self.LOOPH()
+                
             elif  self.check_on_box()== True:
                 self.pick_up_box()
-                if self.check_wall() == False:
-                    self.move()
-                elif self.check_wall() == True and self.W == False :
-                    self.turn_right()
-                    self.move()
-                    self.turn_right()
-                    self.W = True
-                elif self.check_wall() == True and self.W == True:
-                    self.turn_left()
-                    if self.check_wall() == False:
-                        self.move()
-                        self.turn_left()           
-                        self.W = False
-                    else:
-                        self.turn_left()
-                        self.turn_left()
-                        self.move()
-                        self.W = False
-
+                self.LOOPH()
 
     def walk_around_obstacle(self):
             if self.check_wall() == False and self.t == False:
