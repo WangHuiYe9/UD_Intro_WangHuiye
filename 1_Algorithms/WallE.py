@@ -93,6 +93,7 @@ class WallE:
         self.N = False
         self.C = 0
         self.t = False
+        self.l = False
 
     # Declare any help functions here (also use all caps for these!!), it has to include self in the argument.
     # and make sure they are at this indent level
@@ -233,18 +234,31 @@ class WallE:
             elif self.check_wall() == True and self.t == False:
                 self.turn_right()
                 self.move()
-                self.turn_left()
-                self.t == True
+                self.t = True
             
-            elif self.check_wall() == False and self.t == True:
-                self.move()
-            
-            elif self.check_wall() == True and self.t == True :
-                self.turn_right()
-                self.move()
-                self.turn_left()
+            elif self.t == True:
                 self.turn_left()
                 if self.check_wall() == True:
                     self.turn_right()
+            
+                    if self.check_wall() == False:
+                        self.move()
+                        
+                    elif self.check_wall() == True:
+                        self.turn_right()
+                        self.move()
+                    
                 elif self.check_wall() == False:
-                    self.move()
+                    self.turn_right()
+                    
+                    if self.check_wall() == True :  
+                        self.turn_right()
+                        self.move()
+
+                    elif self.check_wall() == True:
+                        self.turn_left()
+                        self.move()
+                        
+                    elif self.check_wall() == False:
+                        self.turn_left()
+                        self.move()
