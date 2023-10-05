@@ -184,24 +184,46 @@ class WallE:
                     self.N = True
         
         elif self.N == True:
-            if self.check_wall() == False:
-                self.move()
-            elif self.check_wall() == True and self.W == False :
-                self.turn_right()
-                self.move()
-                self.turn_right()
-                self.W = True
-            elif self.check_wall() == True and self.W == True:
-                self.turn_left()
+            if self.check_on_box()== False:
+                self.drop_box()
                 if self.check_wall() == False:
                     self.move()
-                    self.turn_left()           
-                    self.W = False
-                else:
-                    self.turn_left()
-                    self.turn_left()
+                elif self.check_wall() == True and self.W == False :
+                    self.turn_right()
                     self.move()
-                    self.W = False
+                    self.turn_right()
+                    self.W = True
+                elif self.check_wall() == True and self.W == True:
+                    self.turn_left()
+                    if self.check_wall() == False:
+                        self.move()
+                        self.turn_left()           
+                        self.W = False
+                    else:
+                        self.turn_left()
+                        self.turn_left()
+                        self.move()
+                        self.W = False
+            elif  self.check_on_box()== True:
+                self.pick_up_box()
+                if self.check_wall() == False:
+                    self.move()
+                elif self.check_wall() == True and self.W == False :
+                    self.turn_right()
+                    self.move()
+                    self.turn_right()
+                    self.W = True
+                elif self.check_wall() == True and self.W == True:
+                    self.turn_left()
+                    if self.check_wall() == False:
+                        self.move()
+                        self.turn_left()           
+                        self.W = False
+                    else:
+                        self.turn_left()
+                        self.turn_left()
+                        self.move()
+                        self.W = False
 
 
     def walk_around_obstacle(self):
